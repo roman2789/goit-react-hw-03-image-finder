@@ -33,7 +33,7 @@ class Modal extends Component {
             zIndex: 1200,
           }}
         >
-          <img src="" alt="" />
+          {this.props.children}
         </div>
       </div>,
       modalRoot
