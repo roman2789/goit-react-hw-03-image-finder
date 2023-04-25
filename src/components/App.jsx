@@ -1,6 +1,9 @@
 import { Component } from 'react';
 import Modal from './Modal/Modal';
 import { ImageGallery } from './ImageGallery/ImageGallery';
+import { Container } from './AppStyled';
+import { Searchbar } from './Searchbar/Searchbar';
+import { GlobalStyles } from 'GlobalStyles';
 class App extends Component {
   state = {
     images: [],
@@ -20,18 +23,17 @@ class App extends Component {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
   };
 
+  onSearchFormSubmit = query => {
+    this.state.images.forEach(image =>
+      image.tags.toLowerCase().includes(query)
+    );
+  };
+
   render() {
     return (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: 40,
-          color: '#010101',
-        }}
-      >
+      <Container>
+        <GlobalStyles />
+        <Searchbar onSubmit={this.onSearchFormSubmit} />
         {this.state.showModal && (
           <Modal onClose={this.onToggleModal}>
             <h1>dbvb</h1>
@@ -41,12 +43,8 @@ class App extends Component {
           </Modal>
         )}
 
-        <button type="button" onClick={this.onToggleModal}>
-          Open modal
-        </button>
-
         <ImageGallery images={this.state.images} />
-      </div>
+      </Container>
     );
   }
 }
