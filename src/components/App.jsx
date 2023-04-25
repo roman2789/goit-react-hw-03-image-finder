@@ -1,17 +1,21 @@
 import { Component } from 'react';
 import Modal from './Modal/Modal';
-
+import { ImageGallery } from './ImageGallery/ImageGallery';
 class App extends Component {
   state = {
+    images: [],
+
     showModal: false,
-    date: new Date().toLocaleTimeString(),
   };
-  componentDidUpdate() {
-    setInterval(
-      () => this.setState({ date: new Date().toLocaleTimeString() }),
-      1000
-    );
+
+  componentDidMount() {
+    fetch(
+      'https://pixabay.com/api/?key=29463027-4abcfc2db99f2732a8383a5f8&page=1&per_page=12'
+    )
+      .then(response => response.json())
+      .then(imagesData => this.setState({ images: imagesData.hits }));
   }
+
   onToggleModal = () => {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
   };
@@ -34,13 +38,14 @@ class App extends Component {
             <button type="button" onClick={this.onToggleModal}>
               Close modal
             </button>
-            <div>{this.state.date}</div>
           </Modal>
         )}
 
         <button type="button" onClick={this.onToggleModal}>
           Open modal
         </button>
+
+        <ImageGallery images={this.state.images} />
       </div>
     );
   }
