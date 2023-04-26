@@ -1,6 +1,5 @@
 import { Component } from 'react';
-
-import { Button } from 'components/Button/Button';
+import { ImSearch } from 'react-icons/im';
 import { SearchSection, Form, Input } from './SearchbarStyled';
 
 export class Searchbar extends Component {
@@ -12,21 +11,30 @@ export class Searchbar extends Component {
   };
   onSubmit = e => {
     e.preventDefault();
+    if (this.state.query.trim() === '') {
+      return;
+    }
     this.props.onSubmit(this.state.query);
+    this.setState({ query: '' });
   };
   render() {
     return (
       <SearchSection>
         <Form onSubmit={this.onSubmit}>
-          <Button />
+          <button type="submit" class="button">
+            <span class="button-label">
+              <ImSearch style={{ margin: '8px' }} />
+            </span>
+          </button>
 
           <Input
             onChange={this.handleQueryChange}
             class="input"
             type="text"
-            autocomplete="off"
-            autofocus
+            autoComplete="on"
+            autoFocus
             placeholder="Search images and photos"
+            value={this.state.query}
           />
         </Form>
       </SearchSection>

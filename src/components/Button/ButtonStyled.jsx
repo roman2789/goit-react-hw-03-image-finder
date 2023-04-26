@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SearchButton = styled.button`
+export const SearchButton = styled.div`
   padding: 8px 16px;
   border-radius: 2px;
   background-color: #3f51b5;
@@ -28,8 +28,7 @@ export const SearchButton = styled.button`
 
 export const ButtonLabel = styled.span`
   position: absolute;
-  width: 1px;
-  height: 1px;
+
   padding: 0;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);

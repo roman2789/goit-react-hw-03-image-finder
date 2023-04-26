@@ -6,27 +6,17 @@ import { Searchbar } from './Searchbar/Searchbar';
 import { GlobalStyles } from 'GlobalStyles';
 class App extends Component {
   state = {
-    images: [],
+    query: '',
 
     showModal: false,
   };
-
-  componentDidMount() {
-    fetch(
-      'https://pixabay.com/api/?key=29463027-4abcfc2db99f2732a8383a5f8&page=1&per_page=12'
-    )
-      .then(response => response.json())
-      .then(imagesData => this.setState({ images: imagesData.hits }));
-  }
 
   onToggleModal = () => {
     this.setState(({ showModal }) => ({ showModal: !showModal }));
   };
 
   onSearchFormSubmit = query => {
-    this.state.images.forEach(image =>
-      image.tags.toLowerCase().includes(query)
-    );
+    this.setState({ query });
   };
 
   render() {
@@ -43,7 +33,7 @@ class App extends Component {
           </Modal>
         )}
 
-        <ImageGallery images={this.state.images} />
+        <ImageGallery query={this.state.query} />
       </Container>
     );
   }
