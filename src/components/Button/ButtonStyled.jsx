@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 
-export const SearchButton = styled.div`
+export const SearchButton = styled.button`
   padding: 8px 16px;
   border-radius: 2px;
   background-color: #3f51b5;
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
   display: inline-block;
   color: #fff;
   border: 0;
@@ -24,15 +26,4 @@ export const SearchButton = styled.div`
   :focus {
     background-color: #303f9f;
   }
-`;
-
-export const ButtonLabel = styled.span`
-  position: absolute;
-
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  clip-path: inset(50%);
-  border: 0;
 `;

@@ -1,9 +1,9 @@
-import { SearchButton, ButtonLabel } from './ButtonStyled';
+import { SearchButton } from './ButtonStyled';
 
-export const Button = () => {
+export const Button = ({ onClick }) => {
   return (
-    <SearchButton type="button" class="button">
-      <ButtonLabel>Load more</ButtonLabel>
-    </SearchButton>
+    <>
+      <SearchButton onClick={onClick}>Load more</SearchButton>
+    </>
   );
 };

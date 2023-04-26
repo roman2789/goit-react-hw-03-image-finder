@@ -1,5 +1,9 @@
-import { GalleryItem } from './ImageGalleryItemStyled';
+import { GalleryItem, ItemRef } from './ImageGalleryItemStyled';
 
-export const Item = ({ children }) => {
-  return <GalleryItem className="gallery-item">{children}</GalleryItem>;
+export const Item = ({ onClick, children }) => {
+  return (
+    <GalleryItem>
+      <ItemRef onClick={onClick}>{children}</ItemRef>
+    </GalleryItem>
+  );
 };

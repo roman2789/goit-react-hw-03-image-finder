@@ -4,6 +4,8 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Container } from './AppStyled';
 import { Searchbar } from './Searchbar/Searchbar';
 import { GlobalStyles } from 'GlobalStyles';
+import { Toaster } from 'react-hot-toast';
+
 class App extends Component {
   state = {
     query: '',
@@ -22,6 +24,7 @@ class App extends Component {
   render() {
     return (
       <Container>
+        <Toaster />
         <GlobalStyles />
         <Searchbar onSubmit={this.onSearchFormSubmit} />
         {this.state.showModal && (
@@ -33,7 +36,7 @@ class App extends Component {
           </Modal>
         )}
 
-        <ImageGallery query={this.state.query} />
+        <ImageGallery query={this.state.query} onClick={this.onToggleModal} />
       </Container>
     );
   }
