@@ -1,8 +1,10 @@
 import { Component } from 'react';
 import { Gallery } from './ImageGalleryStyled';
+import { Item } from 'components/ImageGalleryItem/ImageGalleryItem';
+
 export class ImageGallery extends Component {
   state = {
-    images: null,
+    images: [],
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -13,7 +15,7 @@ export class ImageGallery extends Component {
         .then(response => response.json())
         .then(imagesData =>
           this.setState({
-            images: imagesData.hits,
+            images: [...imagesData.hits],
           })
         );
     }
@@ -23,9 +25,13 @@ export class ImageGallery extends Component {
       <Gallery>
         {this.state.images &&
           this.state.images.map(image => (
-            <li key={image.id} className="gallery-item">
-              <img src={image.userImageURL} alt="" />
-            </li>
+            <Item key={image.id} className="gallery-item">
+              <img
+                src={image.webformatURL}
+                alt=""
+                style={{ height: '100%', width: '100%', objectFit: 'cover' }}
+              />
+            </Item>
           ))}
       </Gallery>
     );
