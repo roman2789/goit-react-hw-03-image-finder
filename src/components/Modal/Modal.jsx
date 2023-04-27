@@ -1,9 +1,10 @@
 import { Component } from 'react';
 import { createPortal } from 'react-dom';
+import { Backdrop, ModaLayer } from './ModalStyled';
 
 const modalRoot = document.querySelector('#modal-root');
 
-class Modal extends Component {
+export class Modal extends Component {
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
   }
@@ -19,47 +20,19 @@ class Modal extends Component {
   };
 
   handleBackdropClick = e => {
-    if (e.currentTarget === e.target) {
+    if (e.currentTarget !== e.target) {
       this.props.onClose();
     }
   };
 
   render() {
     return createPortal(
-      <div
-        className="overlay"
-        onClick={this.handleBackdropClick}
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100vw',
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: 'rgba(0, 0, 0, 0.8)',
-          zIndex: 1200,
-        }}
-      >
-        <div
-          className="modal"
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '500px',
-            height: '400px',
-            backgroundColor: 'white',
-            zIndex: 1200,
-          }}
-        >
-          {this.props.children}
-        </div>
-      </div>,
+      <Backdrop onClick={this.handleBackdropClick}>
+        <ModaLayer>
+          <img loading="lazy" src={this.props.image} alt="img" />
+        </ModaLayer>
+      </Backdrop>,
       modalRoot
     );
   }
 }
-
-export default Modal;

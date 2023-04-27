@@ -4,10 +4,10 @@ export const Loader = () => {
   return (
     <>
       <BallTriangle
-        height={100}
-        width={100}
-        radius={5}
-        color="#3f51b5"
+        height={50}
+        width={50}
+        radius={4}
+        color="#3f51b9"
         ariaLabel="ball-triangle-loading"
         visible={true}
         wrapperStyle={{

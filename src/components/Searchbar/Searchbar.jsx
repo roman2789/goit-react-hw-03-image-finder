@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { ImSearch } from 'react-icons/im';
-import { SearchSection, Form, Input } from './SearchbarStyled';
+import { SearchSection, Form, Input, Button } from './SearchbarStyled';
 import toast from 'react-hot-toast';
 
 export class Searchbar extends Component {
@@ -9,7 +9,6 @@ export class Searchbar extends Component {
   };
   handleQueryChange = e => {
     const queryText = e.currentTarget.value.toLowerCase();
-
     this.setState({ query: queryText });
   };
   onSubmit = e => {
@@ -28,15 +27,13 @@ export class Searchbar extends Component {
     return (
       <SearchSection>
         <Form onSubmit={this.onSubmit}>
-          <button type="submit" class="button">
-            <span class="button-label">
-              <ImSearch style={{ margin: '8px' }} />
-            </span>
-          </button>
+          <Button type="submit">
+            <ImSearch style={{ margin: '18px', size: '20px' }} />
+          </Button>
 
           <Input
             onChange={this.handleQueryChange}
-            class="input"
+            className="input"
             type="text"
             autoComplete="on"
             autoFocus
