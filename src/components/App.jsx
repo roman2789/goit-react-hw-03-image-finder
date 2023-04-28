@@ -35,30 +35,28 @@ class App extends Component {
     this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
-  componentDidUpdate(_, PrevState) {
+  async componentDidUpdate(_, PrevState) {
     if (
       PrevState.query !== this.state.query ||
       PrevState.page !== this.state.page
     ) {
       this.setState({ loading: true });
       const { query, page } = this.state;
-      getImages(query, page)
-        .then(data => {
-          if (data.hits.length === 0) {
-            this.setState({ empty: true });
-          }
-          this.setState(prevState => ({
-            page: prevState.page,
-            images: [...prevState.images, ...data.hits],
-            total: data.total,
-          }));
-        })
-        .catch(error => {
-          this.setState({ error: error.message });
-        })
-        .finally(() => {
-          this.setState({ loading: false });
-        });
+      const data = await getImages(query, page);
+      try {
+        if (data.hits.length === 0) {
+          this.setState({ empty: true });
+        }
+        this.setState(prevState => ({
+          page: prevState.page,
+          images: [...prevState.images, ...data.hits],
+          total: data.total,
+        }));
+        this.setState({ loading: false });
+      } catch (error) {
+        this.setState({ error: error.message });
+        this.setState({ loading: false });
+      }
     }
   }
 
