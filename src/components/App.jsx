@@ -78,7 +78,7 @@ class App extends Component {
         <ImageGallery images={images} />
         {loading && <Loader />}
 
-        {images.length > 0 && total / 12 > page && (
+        {!loading && images.length > 0 && total / 12 > page && (
           <Button onClick={this.handleLoadMoreBtn} />
         )}
       </Container>
