@@ -1,4 +1,5 @@
 import { SearchButton } from './ButtonStyled';
+import PropTypes from 'prop-types';
 
 export const Button = ({ onClick }) => {
   return (
@@ -6,4 +7,8 @@ export const Button = ({ onClick }) => {
       <SearchButton onClick={onClick}>Load more</SearchButton>
     </>
   );
+};
+
+Button.propTypes = {
+  onClick: PropTypes.func,
 };
