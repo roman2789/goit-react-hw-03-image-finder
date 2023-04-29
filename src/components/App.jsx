@@ -42,11 +42,13 @@ class App extends Component {
     ) {
       this.setState({ loading: true });
       const { query, page } = this.state;
-      const data = await getImages(query, page);
+
       try {
+        const data = await getImages(query, page);
         if (data.hits.length === 0) {
           this.setState({ empty: true });
         }
+
         this.setState(prevState => ({
           page: prevState.page,
           images: [...prevState.images, ...data.hits],
@@ -54,14 +56,14 @@ class App extends Component {
         }));
         this.setState({ loading: false });
       } catch (error) {
-        this.setState({ error: error.message });
+        this.setState({ error });
         this.setState({ loading: false });
       }
     }
   }
 
   render() {
-    const { images, loading, total, empty, page } = this.state;
+    const { images, loading, total, empty, page, error } = this.state;
     return (
       <Container>
         <GlobalStyles />
@@ -73,8 +75,9 @@ class App extends Component {
             duration: 2000,
             position: 'top-right',
           })}
-        <ImageGallery images={images} />
+        {error && <p>Вибачте, сталася помилка!</p>}
         {loading && <Loader />}
+        <ImageGallery images={images} />
 
         {!loading && images.length > 0 && total / 12 > page && (
           <Button onClick={this.handleLoadMoreBtn} />
