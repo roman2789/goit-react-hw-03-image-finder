@@ -47,13 +47,13 @@ class App extends Component {
         const data = await getImages(query, page);
         if (data.hits.length === 0) {
           this.setState({ empty: true });
+        } else {
+          this.setState(prevState => ({
+            page: prevState.page,
+            images: [...prevState.images, ...data.hits],
+            total: data.total,
+          }));
         }
-
-        this.setState(prevState => ({
-          page: prevState.page,
-          images: [...prevState.images, ...data.hits],
-          total: data.total,
-        }));
         this.setState({ loading: false });
       } catch (error) {
         this.setState({ error });
@@ -69,15 +69,17 @@ class App extends Component {
         <GlobalStyles />
         <Toaster />
         <Searchbar onSubmit={this.onSearchFormSubmit} />
-
         {empty &&
           toast.error('Нажаль по цьому запиту нічого немає...', {
             duration: 2000,
             position: 'top-right',
+            id: ' ',
           })}
-        {error && <p>Вибачте, сталася помилка!</p>}
-        {loading && <Loader />}
+
         <ImageGallery images={images} />
+
+        {error && <>Вибачте, сталася помилка!</>}
+        {loading && <Loader />}
 
         {!loading && images.length > 0 && total / 12 > page && (
           <Button onClick={this.handleLoadMoreBtn} />
