@@ -23,5 +23,11 @@ export const ImageGallery = ({ images }) => {
 };
 
 ImageGallery.propTypes = {
-  images: PropTypes.array,
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      tags: PropTypes.string.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };

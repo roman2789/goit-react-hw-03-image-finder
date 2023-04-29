@@ -29,5 +29,8 @@ export class Item extends Component {
 }
 
 Item.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
+  image: PropTypes.shape({
+    largeImageURL: PropTypes.string.isRequired,
+  }).isRequired,
 };
